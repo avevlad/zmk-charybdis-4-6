@@ -31,7 +31,7 @@
 
     scroll {
       layers = <FN>;
-      input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_xy_scaler 3 9>, <&zip_xy_to_scroll_mapper>;
+      input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_xy_scaler 100 100>, <&zip_xy_to_scroll_mapper>;
     };
 
     move {

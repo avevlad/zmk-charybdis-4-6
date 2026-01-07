@@ -62,12 +62,13 @@ docker run --rm -v "$(pwd)/output:/workspace/output" zmk-charybdis-build
 ```bash
 docker run --rm -v "$(pwd)/output:/workspace/output" zmk-charybdis-build \
   /bin/bash -c "
-    west build -s zmk/app -d build/charybdis_dongle -b nice_nano_v2 -- \
+    mkdir -p /workspace/output && \
+    west build -s zmk/app -d build/charybdis_dongle -b nice_nano_v2 -p -- \
       -DZMK_CONFIG=/workspace/config \
       -DSHIELD=charybdis_dongle \
-      -DZMK_EXTRA_MODULES='/workspace/boards' \
+      -DZMK_EXTRA_MODULES=/workspace/boards \
       -DCONFIG_ZMK_STUDIO=y \
-      -Dstudio-rpc-usb-uart_SNIPPET=y && \
+      -DSNIPPET=studio-rpc-usb-uart && \
     cp build/charybdis_dongle/zephyr/zmk.uf2 /workspace/output/charybdis_dongle.uf2
   "
 ```

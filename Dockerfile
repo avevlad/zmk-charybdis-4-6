@@ -20,36 +20,39 @@ RUN west init -l config && \
 # Команда по умолчанию - сборка всех конфигураций из build.yaml
 # Можно переопределить при запуске контейнера
 CMD ["/bin/bash", "-c", "\
+    # Создание директории для выходных файлов \
+    mkdir -p /workspace/output && \
+    \
     # Сборка dongle с ZMK Studio \
-    west build -s zmk/app -d build/charybdis_dongle -b nice_nano_v2 -- \
+    west build -s zmk/app -d build/charybdis_dongle -b nice_nano_v2 -p -- \
         -DZMK_CONFIG=/workspace/config \
         -DSHIELD=charybdis_dongle \
-        -DZMK_EXTRA_MODULES='/workspace/boards' \
+        -DZMK_EXTRA_MODULES=/workspace/boards \
         -DCONFIG_ZMK_STUDIO=y \
-        -Dstudio-rpc-usb-uart_SNIPPET=y && \
+        -DSNIPPET=studio-rpc-usb-uart && \
     cp build/charybdis_dongle/zephyr/zmk.uf2 /workspace/output/charybdis_dongle.uf2 && \
     echo 'Собрано: charybdis_dongle.uf2' && \
     \
     # Сборка settings_reset \
-    west build -s zmk/app -d build/settings_reset -b nice_nano_v2 -- \
+    west build -s zmk/app -d build/settings_reset -b nice_nano_v2 -p -- \
         -DZMK_CONFIG=/workspace/config \
         -DSHIELD=settings_reset && \
     cp build/settings_reset/zephyr/zmk.uf2 /workspace/output/settings_reset.uf2 && \
     echo 'Собрано: settings_reset.uf2' && \
     \
     # Сборка charybdis_left \
-    west build -s zmk/app -d build/charybdis_left -b nice_nano_v2 -- \
+    west build -s zmk/app -d build/charybdis_left -b nice_nano_v2 -p -- \
         -DZMK_CONFIG=/workspace/config \
         -DSHIELD=charybdis_left \
-        -DZMK_EXTRA_MODULES='/workspace/boards' && \
+        -DZMK_EXTRA_MODULES=/workspace/boards && \
     cp build/charybdis_left/zephyr/zmk.uf2 /workspace/output/charybdis_left.uf2 && \
     echo 'Собрано: charybdis_left.uf2' && \
     \
     # Сборка charybdis_right \
-    west build -s zmk/app -d build/charybdis_right -b nice_nano_v2 -- \
+    west build -s zmk/app -d build/charybdis_right -b nice_nano_v2 -p -- \
         -DZMK_CONFIG=/workspace/config \
         -DSHIELD=charybdis_right \
-        -DZMK_EXTRA_MODULES='/workspace/boards' && \
+        -DZMK_EXTRA_MODULES=/workspace/boards && \
     cp build/charybdis_right/zephyr/zmk.uf2 /workspace/output/charybdis_right.uf2 && \
     echo 'Собрано: charybdis_right.uf2' && \
     \
