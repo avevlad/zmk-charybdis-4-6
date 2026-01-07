@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  zmk-build:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: zmk-charybdis-build
+    container_name: zmk-charybdis-builder
+    volumes:
+      # Монтируем директорию output для получения готовых прошивок
+      - ./output:/workspace/output
+      # Опционально: кеширование west modules для ускорения пересборок
+      - zmk-modules:/workspace/modules
+      - zmk-tools:/workspace/tools
+      - zmk-zephyr:/workspace/zephyr
+      - zmk-bootloader:/workspace/bootloader
+      - zmk-zmk:/workspace/zmk
+
+volumes:
+  # Volumes для кеширования зависимостей между сборками
+  zmk-modules:
+  zmk-tools:
+  zmk-zephyr:
+  zmk-bootloader:
+  zmk-zmk:
