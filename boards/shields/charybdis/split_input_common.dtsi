@@ -33,11 +33,6 @@
       layers = <DEF MOUSE FN NUM SYM GENSHIN>;
       input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_xy_scaler 15 40>, <&zip_xy_to_scroll_mapper>;
     };
-
-    move {
-      layers = <>;
-      input-processors = <&auto_mouse_layer MOUSE 1000>;
-    };
   };
 
   auto_mouse_layer: auto_mouse_layer {
